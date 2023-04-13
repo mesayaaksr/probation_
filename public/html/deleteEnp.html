@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Student Un alog plan</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/add.css" />
+
+  </head>
+  <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+  <body>
+    <div class="header" action="/main" method="GET">
+      <div class="logo">
+        <img src="../images/Buu-logo11.png" alt="logo" />
+      </div>
+      <div class="name">
+        <h1>ระบบติดตามนิสิตที่รอการพินิจและจบไม่ตรงแผน</h1>
+        <h2>
+          The system for probation students following and unalong plan of
+          graduation
+        </h2>
+      </div>
+      <div class="user">
+        <img
+          src="https://thumbs.dreamstime.com/b/user-account-icon-person-solid-logo-illustration-pictog-pictogram-isolated-white-90235639.jpg"
+          alt="logo"
+        />
+        <div class="user-detail">
+          <p id="name">ชื่อผู้ใช้:<%= name %> </p>
+          <p id="position">สถานะ:<%= position %> </p>
+        </div>
+      </div>
+    </div>
+    <div class="bar"></div>
+    <div class="bar2"></div>
+
+    <div class="row">
+      <div class="column">
+        <ul>
+          <li><a href="/manageStudentConsider">จัดการนิสิตรอการพินิจ</a></li>
+          <li><a href="/manageStudentEnp">จัดการนิสิตจบไม่ตรงแผน</a></li>
+          <li><a href="/followStudent">ติดตามนิสิตรอการพินิจ</a></li>
+          <li><a href="/followStudentEnp">ติดตามนิสิตจบไม่ตรงแผน</a></li>
+          <li><a href="/manageUser">จัดการผู้ใช้งาน</a></li>
+          <li><a href="/logout">ออกจากระบบ</a></li>
+          
+      </ul>
+      </div>
+      <div class="column2 content">
+      <div class="row" id="bord">
+          <h2>ยืนยันลบนิสิตจบไม่ตรงแผน</h2>
+        <div>
+            <p id="text">ต้องการลบข้อนิสิตจบไม่ตรงแผน</p>
+            <p><%= stu_enp_name %></p>
+            <p>ใช่หรือไม่</p>
+        </div>
+        <div class="btnRow">
+            <button type="submit" id="ok" onclick="btnConfirm()">ตกลง</button>
+            <button type="button" id="cancel" onclick="btnCancle()">ยกเลิก</button>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+      
+        </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+      function btnConfirm() {
+          window.location.href = "/deleteEnp"
+          var stuconName = "<%= stu_enp_name %>"
+          var name = "<%= name %>"
+          if(username == name){
+              alert("ลบข้อมูลนิสิตจบไม่ตรงแผนไม่สำเร็จ");
+          } else {
+              alert("ลบข้อมูลนิสิตจบไม่ตรงแผนสำเร็จ");
+          }
+      }
+      function btnCancle() {
+        window.location.href = '/manageStudentEnp'
+      }
+  
+  </script>
+  
+</html>

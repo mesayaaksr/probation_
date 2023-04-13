@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Follow Student Consider Study Plans.</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/followplan.css" />
+
+  </head>
+  <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+  <body>
+    <div class="header" action="/main" method="GET">
+      <div class="logo">
+        <img src="../images/Buu-logo11.png" alt="logo" />
+      </div>
+      <div class="name">
+        <h1>ระบบติดตามนิสิตที่รอการพินิจและจบไม่ตรงแผน</h1>
+        <h2>
+          The system for probation students following and unalong plan of
+          graduation
+        </h2>
+      </div>
+      <div class="user">
+        <img
+          src="https://thumbs.dreamstime.com/b/user-account-icon-person-solid-logo-illustration-pictog-pictogram-isolated-white-90235639.jpg"
+          alt="logo"
+        />
+        <div class="user-detail">
+          <p id="name">ชื่อผู้ใช้:<%= name %> </p>
+          <p id="position">สถานะ:<%= position %> </p>
+        </div>
+      </div>
+    </div>
+    <div class="bar"></div>
+    <div class="bar2"></div>
+
+    <div class="row">
+      <div class="column">
+        <ul>
+          <li><a href="/manageStudentConsider">จัดการนิสิตรอการพินิจ</a></li>
+          <li><a href="/manageStudentEnp">จัดการนิสิตจบไม่ตรงแผน</a></li>
+          <li><a href="/followStudent">ติดตามนิสิตรอการพินิจ</a></li>
+          <li><a href="/followStudentEnp">ติดตามนิสิตจบไม่ตรงแผน</a></li>
+          <li><a href="/manageUser">จัดการผู้ใช้งาน</a></li>
+          <li><a href="/logout">ออกจากระบบ</a></li>
+          
+      </ul>
+      </div>
+      <div class="column2 content">
+        <h2>ติดตามนิสิตรอการพินิจ</h2>
+
+      <div class="row2">  
+      <div class="addphoto">
+      <img src="../images/Addphoto.jpeg" alt="photoAdd" style="width : 100px " >
+      </div> 
+
+      <div class="from1">
+      <form>
+            <p>
+            <label for="">รหัสนิสิต: </label> <input name="studentID" type="text" id="studentID"  disabled="disabled" value="<%= studentID %>" />
+            </p>
+        
+            <p>
+              <label for="">ชื่อ-นามสกุล: </label>  <input name="nameStu"  type="text" id="nameStu" disabled="disabled" value="<%= nameStu %>"/>
+            </p>
+            <p>
+              <label for="">ระดับ: </label>  <input  name="stuLevel" type="text" id="stuLevel" disabled="disabled" value="<%= stuLevel %>" />
+            </p> 
+            <p>
+              <label for="">เกรดเฉลี่ย: </label>  <input name="stuGpa" type="text" id="stuGpa" disabled="disabled" value="<%= stuGpa %>"/>
+            </p>
+            <p>
+              <label for="">สถานภาพ: </label>  <input name="stuStatus" type="text" id="stuStatus" disabled="disabled"  value="<%= stuStatus %>"/>
+            </p>
+            <p>
+              <label for="">หน่วยกิตที่ผ่าน: </label>  <input name="creditPassed" type="text" id="creditPassed" disabled="disabled" value="<%= creditPassed %>" />
+            </p>
+            <p>
+              <label for="">หน่วยกิตที่ลง: </label>  <input name="creditDown" type="text" id="creditDown" disabled="disabled" value="<%= creditDown %>" />
+            </p>
+            <p>
+              <label for="">รอพิจารณา : </label>  <input  name="stuCon" type="text" id="stuCon" disabled="disabled" value="<%= stuCon %>"/>
+            </p>                 
+      </form>
+        </div>
+        
+       
+      </div>
+       <div class="from-2">
+      <form action="/followStudentReg" method="POST" onsubmit="return(validate())" >
+        <p>
+          <label for="" style="margin-left: 141px;">แผนการเรียน : </label>  <textarea name="stuConReg" id="stuConReg" style="width: 576px; height: 100px; margin-left: 20px" required ></textarea>
+                      <button type="submit" id="ok" onclick="btnSave()">บันทึก</button>
+          </p>
+        
+      </form> 
+    </div>
+        <div class="table">
+          <table>
+            <tr>
+              <th>ลำดับ</th>
+              <th>วัน เดือน ปี</th>
+              <th>แผนการเรียน</th>
+              <th>ลบ</th>
+            </tr>
+            <% if(studentConReg.length){ for(var i=0; i< studentConReg.length; i++) { %> 
+
+              <td scope="row">
+                  <%= (i+1) %>
+              </td>
+              <td> 
+                <%= studentConReg[i].stu_con_datetime%>
+              </td>
+              <td> 
+                <%= studentConReg[i].stu_con_reg_plan%>
+              </td>
+              <td>
+                <a href="/deleteRegCon/<%= studentConReg[i].follow_stu_con_id%>" id="btndelete" ><img src="../images/delete.jpg" id="edit" alt="" style="height: 20px; width: 20px;"/></a>            
+                </td>
+             
+            </tr>
+
+            <% } }else{ %>
+              <% } %>  
+                 
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function validate() {
+        let stuConReg = document.getElementById("stuConReg");
+ 
+        if (stuConReg.value.length == 0 ) {
+            alert("กรุณากรอกข้อมูลให้ถูกต้อง");
+            return false;
+        }else{
+        return true;
+        alert("เพิ่มแผนการเรียนสำเร็จ")
+
+    }
+
+    }
+    
+   
+
+</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</html>

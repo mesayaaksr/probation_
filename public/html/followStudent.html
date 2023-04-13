@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Follow Student Consider</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/follow.css" />
+
+
+
+  </head>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+  crossorigin="anonymous"></script>
+  <script
+    type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"
+  ></script>
+
+  <body>
+    <div class="header" action="/followStudent" method="GET">
+      <div class="logo">
+        <img src="../images/Buu-logo11.png" alt="logo" />
+      </div>
+      <div class="name">
+        <h1>ระบบติดตามนิสิตที่รอการพินิจและจบไม่ตรงแผน</h1>
+        <h2>The system for probation students following and unalong plan of graduation</h2>
+      </div>
+      <div class="user">
+        <img
+          src="https://thumbs.dreamstime.com/b/user-account-icon-person-solid-logo-illustration-pictog-pictogram-isolated-white-90235639.jpg"
+          alt="logo"
+        />
+        <div class="user-detail">
+          <p id="name">ชื่อผู้ใช้:<%= name %> </p>
+          <p id="position">สถานะ:<%= position %> </p>
+        </div>
+      </div>
+    </div>
+    <div class="bar"></div>
+    <div class="bar2"></div>
+
+    <div class="row">
+      <div class="column">
+          <ul>
+            <li><a href="/manageStudentConsider">จัดการนิสิตรอการพินิจ</a></li>
+            <li><a href="/manageStudentEnp">จัดการนิสิตจบไม่ตรงแผน</a></li>
+            <li><a href="/followStudent">ติดตามนิสิตรอการพินิจ</a></li>
+            <li><a href="/followStudentEnp">ติดตามนิสิตจบไม่ตรงแผน</a></li>
+            <li><a href="/manageUser">จัดการผู้ใช้งาน</a></li>
+            <li><a href="/logout">ออกจากระบบ</a></li>
+          </ul>
+      </div>
+      <div class="column2 content">
+        <h2>หน้าติดตามนิสิตรอการพินิจ</h2>
+        <h3>รายชื่อนิสิต รอการพินิจ</h3>
+        <label for="search">ค้นหานิสิต:</label>
+        <input type="text" id="searchuser" name="search" maxlength="50" placeholder="ชื่อ นามสกุล รหัสนิสิต" />
+        <button type="button" id="btnsearch" onclick="search1()"> ค้นหา </button>
+       
+        <div class="table">
+          <table>
+            <tr>
+              <th>ลำดับ</th>
+              <th>รหัสนิสิต</th>
+              <th>ชื่อ นามสกุล</th>
+              <th>เกรด</th>
+              <th>หน่วยกิตที่ผ่าน</th>
+              <th>หน่วยกิตที่ลง</th>
+              <th>ระดับ</th>
+              <th>รอพิจาณา</th>
+              <th>ครั้งที</th>
+              <th>ติดตาม</th>
+            </tr>
+            <% if(studentCon.length){ for(var i=0; i< studentCon.length; i++) { %> 
+
+              <td scope="row">
+                  <%= (i+1) %>
+              </td>
+              <td> 
+                <%= studentCon[i].id_student_con%>
+              </td>
+              <td> 
+                <%= studentCon[i].stu_con_name%>
+              </td>
+              <td> 
+                <%= studentCon[i].stu_con_gpa%>
+              </td>
+              <td> 
+                <%= studentCon[i].stu_con_cr_passed%>
+              </td>
+              <td> 
+                <%= studentCon[i].stu_con_cr_down%>
+              </td>
+              <td> 
+                <%= studentCon[i].stu_con_ed_level%>
+              </td>
+              <td> 
+                <%= studentCon[i].stu_con_consider%>
+              </td>
+              <td>
+                <%= studentCon[i].stu_con_time%>
+              </td>
+              
+              <div class="mailbox">
+              <td><a href="/followStudentCon/<%= studentCon[i].stu_con_id%>" id="btnmailbox"><img src="../images/mailbox.png" alt="mailbox" /></a></td>
+            </div>
+            </tr>
+            <% } }else{ %>
+              <% } %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  crossorigin="anonymous"
+></script>
+<script>
+  var btn = document.getElementById("btnManage")
+  var input = document.getElementById("searchuser")
+ 
+  function search1() {
+      if (input.value == "") {
+          window.location.href = "/followStudent"
+      } else {
+          window.location.href = "/followStudent/" + input.value
+      }
+  }
+
+</script>
+
+</html>

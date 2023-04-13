@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage User</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/add.css">
+  </head>
+
+  <body>
+    <div class="header" action="/main" method="GET">
+      <div class="logo">
+        <img src="../images/Buu-logo11.png" alt="logo" />
+      </div>
+
+      <div class="name">
+        <h1>ระบบติดตามนิสิตที่รอการพินิจและจบไม่ตรงแผน</h1>
+        <h2>
+          The system for probation students following and unalong plan of
+          graduation
+        </h2>
+      </div>
+
+      <div class="user">
+        <img
+          src="https://thumbs.dreamstime.com/b/user-account-icon-person-solid-logo-illustration-pictog-pictogram-isolated-white-90235639.jpg"
+          alt="logo"
+        />
+        <div class="user-detail">
+          <p id="name">ชื่อผู้ใช้:<%= name %> </p>
+          <p id="position">สถานะ:<%= position %> </p>
+        </div>
+      </div>
+    </div>
+    <div class="bar"></div>
+    <div class="bar2"></div>
+
+    <div class="row">
+      <div class="column">
+        <ul>
+          <li><a href="/manageStudentConsider">จัดการนิสิตรอการพินิจ</a></li>
+          <li><a href="/manageStudentEnp">จัดการนิสิตจบไม่ตรงแผน</a></li>
+          <li><a href="/followStudent">ติดตามนิสิตรอการพินิจ</a></li>
+          <li><a href="/followStudentEnp">ติดตามนิสิตจบไม่ตรงแผน</a></li>
+          <li><a href="/manageUser">จัดการข้อมูลผู้ใช้งาน</a></li>
+          <li><a href="/logout">ออกจากระบบ</a></li>
+        </ul>
+      </div>
+      <div class="column2 content">
+        <h2>จัดการข้อมูลผู้ใช้งาน</h2>
+        
+      
+        <div class="search">
+          <label for="search">ค้นหาผู้ใช้งาน:</label>
+          <input type="text" id="searchuser" name="search" maxlength="50" style="width: 500px; height : 40px;" placeholder="ชื่อผู้ใช้ ชื่อ" />
+          <button type="button" id="btnsearch" onclick="search1()"> ค้นหา </button>        
+          <a  href="/manageUser_add" target="_blank"> <button type="button" id="btnAdd">เพิ่มข้อมูล</button></a>
+        </div>
+        <div class="table">
+          <table>
+            <tr>
+              <th>ลำดับ</th>
+              <th>ชื่อผู้ใช้งาน</th>
+              <th>ชื่อ - นามสกุล</th>
+              <th>สถานะ</th>
+              <th>แก้ไข</th>
+              <th>ลบ</th>
+            </tr>
+            
+           <% if(user.length){ for(var i=0; i< user.length; i++) { %> 
+
+              <td scope="row">
+                  <%= (i+1) %>
+              </td>
+              <td>
+                  <%= user[i].username%>
+              </td>
+      
+              <td>
+                <%= user[i].name_user%>
+            </td>
+            <td>
+              <%= user[i].status_user%>
+          </td>
+          <td><a href="/manageUser_edit/<%= user[i].user_id%>" id="btnedit" ><img src="../images/edit.png" alt="" /></a></td>
+          <td><a href="/delUser/<%= user[i].user_id%>" id="btndelete" ><img src="../images/delete.jpg" id="edit" alt="" style="height: 20px; width: 20px;"/></a></td>
+            </tr>
+            <% } }else{ %>
+              <% } %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+      var btn = document.getElementById("btnManage")
+      var input = document.getElementById("searchuser")
+      function search1() {
+          if (input.value == "") {
+              window.location.href = "/manageUser"
+          } else {
+              window.location.href = "/manageUser/" + input.value
+          }
+      }
+      function add() {
+          window.location.href = '/add'
+      }
+  
+  </script>
+</html>

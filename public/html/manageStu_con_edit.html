@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Student Consider Edit</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/addStudent.css" />
+
+  </head>
+  <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+  <body>
+    <div class="header" action="/main" method="GET">
+      <div class="logo">
+        <img src="../images/Buu-logo11.png" alt="logo" />
+      </div>
+      <div class="name">
+        <h1>ระบบติดตามนิสิตที่รอการพินิจและจบไม่ตรงแผน</h1>
+        <h2>
+          The system for probation students following and unalong plan of
+          graduation
+        </h2>
+      </div>
+      <div class="user">
+        <img
+          src="https://thumbs.dreamstime.com/b/user-account-icon-person-solid-logo-illustration-pictog-pictogram-isolated-white-90235639.jpg"
+          alt="logo"
+        />
+        <div class="user-detail">
+          <p id="name">ชื่อผู้ใช้:<%= name %> </p>
+          <p id="position">สถานะ:<%= position %> </p>
+        </div>
+      </div>
+    </div>
+    <div class="bar"></div>
+    <div class="bar2"></div>
+
+    <div class="row">
+      <div class="column">
+        <ul>
+          <li><a href="/manageStudentConsider">จัดการนิสิตรอการพินิจ</a></li>
+          <li><a href="/manageStudentEnp">จัดการนิสิตจบไม่ตรงแผน</a></li>
+          <li><a href="/followStudent">ติดตามนิสิตรอการพินิจ</a></li>
+          <li><a href="/followStudentEnp">ติดตามนิสิตจบไม่ตรงแผน</a></li>
+          <li><a href="/manageUser">จัดการผู้ใช้งาน</a></li>
+          <li><a href="/logout">ออกจากระบบ</a></li>
+          
+      </ul>
+      </div>
+      <div class="column2 content">
+        <h2>แก้ไขข้อมูลนิสิตรอการพินิจ</h2>
+
+    
+
+      <div class="from1" >
+        <form action="/editStudentConsider/<%= manageCon %>" method="POST">
+          <p>
+            <label for="">รหัสนิสิต: </label> <input name="studentIDCon" type="text" id="studentIDCon"  value="<%= studentIDCon %>"required >
+            </p>
+        
+            <p>
+              <label for="">ชื่อ-นามสกุล: </label>  <input name="nameStuCon"  type="text" id="nameStuCon" value="<%= nameStuCon %>" required>
+            </p>
+            <p>
+              <label for="">ระดับ: </label>  <select name="stuLevelCon"  id="stuLevelCon" value="<%= stuLevelCon%>" required>
+                <option>ตรี พิเศษ</option>
+                <option>ตรี ปกติ</option>
+              </select>  
+            </p> 
+            <p>
+              <label for="">เกรดเฉลี่ย: </label>  <input name="stuGpaCon" type="text" id="stuGpaCon" value="<%= stuGpaCon%>" required>
+            </p>
+            <p>
+              <label for="">สถานภาพ: </label> <select name="stuStatusCon"  id="stuStatusCon" value="<%= stuStatusCon %>" required>
+                <option>10</option>
+                <option>12</option>
+              </select>
+            </p>
+            <p>
+              <label for="">หน่วยกิตที่ผ่าน: </label>  <input name="creditPassedCon" type="text" id="creditPassedCon" value="<%= creditPassedCon %>" required >
+            </p>
+            <p>
+              <label for="">หน่วยกิตที่ลง: </label>  <input name="creditDownCon" type="text" id="creditDownCon" value="<%= creditDownCon %>" required >
+            </p>
+            <p>
+              <label for="">รอการพิจารณา: </label> <select name="considerCon"  id="considerCon" value="<%= considerCon %>" required>
+                <option>โปรต่ำ</option>
+                <option>โปรสูง</option>
+              </select>
+            </p>
+            <p>
+              <label for="">ครั้งที่: </label> <select name="considertime"  id="considertime" value="<%= considertime %>" required>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+
+              </select>
+            </p>
+            
+            <div class="btnRow">
+              <button type="submit" id="ok" onclick="btnConfirm()">บันทึก</button>
+              <button type="button" id="cancel" onclick="btnCancle()">ยกเลิก</button>
+          </div>     
+      </form>
+        </div>
+      </div>
+      
+        </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+   function validate() {
+        let studentIDCon = document.getElementById("studentIDCon");
+        let nameStuCon = document.getElementById("nameStuCon");
+        let stuLevelCon = document.getElementById("stuLevelCon");
+        let stuGpaCon = document.getElementById("stuGpaCon");
+        let stuStatusCon = document.getElementById("stuStatusEnp");
+        let creditPassedCon = document.getElementById("creditPassedCon");
+        let creditDownCon = document.getElementById("creditDownCon");
+        let considerCon = document.getElementById("considerCon");
+
+
+        if (studentIDCon.value.length == 0 || nameStuCon.value.length == 0 ||
+        stuLevelCon.value.length == 0 || stuGpaCon.valueEnp.length == 0 ||
+        stuStatusCon.value.length == 0 || creditPassedCon.value.length == 0 ||
+        creditDownCon.value.length == 0 ||
+        considerCon.value.length == 0) {
+            alert("กรุณากรอกข้อมูลให้ถูกต้อง");
+            return false;
+        }else{
+        return true;
+        alert("เพิ่มข้อมูลนิสิตรอการพินิจสำเร็จ")
+      }
+    }
+    function btnCancle() {
+      window.location.href = '/manageStudentConsider'
+    }
+
+</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</html>
